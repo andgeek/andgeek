@@ -7,7 +7,7 @@ import android.content.Context;
 import android.os.Environment;
 
 /**
- * @项目名称：FastDev
+ * @项目名称：andgeek
  * @类名称：DataCleanManager
  * @类描述： 数据清除
  * @创建人：Administrator
@@ -21,10 +21,10 @@ public class DataCleanManager {
     
     /**
      * @description 获取缓存大小
-     * @date 2015年8月27日
+     * @date 2015年10月16日
      * @param context
+     *            当前上下文
      * @return
-     * @throws Exception
      */
     public static String getTotalCacheSize(Context context) {
         long cacheSize = 0;
@@ -36,6 +36,7 @@ public class DataCleanManager {
         }
         catch (Exception e) {
             e.printStackTrace();
+            return getFormatSize(cacheSize);
         }
         return getFormatSize(cacheSize);
     }
@@ -44,6 +45,7 @@ public class DataCleanManager {
      * @description 清空缓存
      * @date 2015年8月27日
      * @param context
+     *            当前上下文
      */
     public static void clearAllCache(Context context) {
         deleteDir(context.getCacheDir());
@@ -73,10 +75,9 @@ public class DataCleanManager {
      * @description 获取目录或者文件大小
      * @date 2015年8月27日
      * @param file
-     * @return
-     * @throws Exception
+     * @return long 
      */
-    public static long getFolderSize(File file) throws Exception {
+    public static long getFolderSize(File file) {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
@@ -92,6 +93,7 @@ public class DataCleanManager {
         }
         catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
         return size;
     }
@@ -100,12 +102,11 @@ public class DataCleanManager {
      * 格式化单位
      * 
      * @param size
-     * @return
+     * @return String 
      */
     public static String getFormatSize(double size) {
         double kiloByte = size / 1024;
         if (kiloByte < 1) {
-            // return size + "Byte";
             return "0K";
         }
         
