@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
+import me.andgeek.develop.util.LogUtils;
+
 import org.json.JSONObject;
 
 import com.alibaba.fastjson.JSON;
@@ -21,7 +23,6 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
-import me.andgeek.develop.util.LogUtils;
 
 /**
  * Json请求基类 提交表单参数
@@ -43,26 +44,109 @@ public class FastjsonRequest<T> extends JsonRequest<T> {
     
     private Map<String, String> headers;
     
+    private Map<String, String> mMapParams;
+    
     // 是否使用缓存，默认false;
     private boolean isUseCache = false;
     
-    public FastjsonRequest(String url,
-                           Class<T> clazz,
-                           JSONObject jsonRequest,
-                           Listener<T> listener,
-                           ErrorListener errorListener) {
+    /**
+     * 创建一个新的实例 FastjsonRequest. 默认GET请求
+     * 
+     * @param url
+     *            访问路径
+     * @param clazz
+     *            返回的实体类型
+     * @param jsonRequest
+     *            请求的json格式参数
+     * @param listener
+     *            成功回调
+     * @param errorListener
+     *            错误回调
+     */
+    public FastjsonRequest(final String url,
+                           final Class<T> clazz,
+                           final JSONObject jsonRequest,
+                           final Listener<T> listener,
+                           final ErrorListener errorListener) {
         this(jsonRequest == null ? Method.GET : Method.POST, url, clazz, jsonRequest, listener, errorListener);
     }
     
-    public FastjsonRequest(int method,
-                           String url,
-                           Class<T> clazz,
-                           JSONObject jsonRequest,
-                           Listener<T> listener,
-                           ErrorListener errorListener) {
+    /**
+     * 创建一个新的实例 FastjsonRequest.
+     * 
+     * @param method
+     *            请求方式{@link Method}
+     * @param url
+     *            访问路径
+     * @param clazz
+     *            返回的实体类型
+     * @param jsonRequest
+     *            请求的json格式参数
+     * @param listener
+     *            成功回调
+     * @param errorListener
+     *            错误回调
+     */
+    public FastjsonRequest(final int method,
+                           final String url,
+                           final Class<T> clazz,
+                           final JSONObject jsonRequest,
+                           final Listener<T> listener,
+                           final ErrorListener errorListener) {
         
         super(method, url, (jsonRequest == null) ? null : jsonRequest.toString(), listener, errorListener);
         this.mCls = clazz;
+    }
+    
+    /**
+     * 创建一个新的实例 FastjsonRequest. 默认GET请求
+     * 
+     * @param url
+     *            访问路径
+     * @param clazz
+     *            返回的实体类型
+     * @param mapRequest
+     *            请求的Map格式参数
+     * @param listener
+     *            成功回调
+     * @param errorListener
+     *            错误回调
+     */
+    public FastjsonRequest(final String url,
+                           final Class<T> clazz,
+                           final Map<String, String> mapRequest,
+                           final Listener<T> listener,
+                           final ErrorListener errorListener) {
+        super(Method.GET, url, null, listener, errorListener);
+        this.mCls = clazz;
+        mMapParams = mapRequest;
+    }
+    
+    /**
+     * 创建一个新的实例 FastjsonRequest.
+     * 
+     * @param method
+     *            请求方式{@link Method}
+     * @param url
+     *            访问路径
+     * @param clazz
+     *            返回的实体类型
+     * @param mapRequest
+     *            请求的Map格式参数
+     * @param listener
+     *            成功回调
+     * @param errorListener
+     *            错误回调
+     */
+    public FastjsonRequest(final int method,
+                           final String url,
+                           final Class<T> clazz,
+                           final Map<String, String> mapRequest,
+                           final Listener<T> listener,
+                           final ErrorListener errorListener) {
+        super(method, url, null, listener, errorListener);
+        this.mCls = clazz;
+        mMapParams = mapRequest;
     }
     
     @Override
@@ -82,6 +166,11 @@ public class FastjsonRequest<T> extends JsonRequest<T> {
         return headers;
         
     }
+    
+    @Override
+    protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
+        return mMapParams;
+    };
     
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {

@@ -1,6 +1,12 @@
 package me.andgeek.develop.net;
 
 import java.io.File;
+import java.util.Map;
+
+import me.andgeek.develop.BaseApplication;
+import me.andgeek.develop.util.StringUtils;
+import me.andgeek.develop.util.ToastUtils;
+import me.andgeek.develop.view.ProgressDialog;
 
 import org.json.JSONObject;
 
@@ -16,10 +22,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.VolleyError;
-import me.andgeek.develop.BaseApplication;
-import me.andgeek.develop.util.StringUtils;
-import me.andgeek.develop.util.ToastUtils;
-import me.andgeek.develop.view.ProgressDialog;
 
 /**
  * 请求处理监听
@@ -147,6 +149,7 @@ public class RequestClient<Response> {
         }
     }
     
+    // //////////////////////////////////////////////////////Json参数-开始//////////////////////////////////////////////////////////////////////////////
     /**
      * @description 请求服务器数据
      * @date 2015年9月7日
@@ -276,6 +279,139 @@ public class RequestClient<Response> {
         request.setTag(mContext);
         RequestManager.getRequestQueue().add(request);
     }
+    
+    // //////////////////////////////////////////////////////Map参数-开始//////////////////////////////////////////////////////////////////////////////
+    /**
+     * @description 请求服务器数据
+     * @date 2015年9月7日
+     * @param loadingMsg
+     *            对话框提示文字
+     * @param url
+     *            请求地址
+     * @param responceClass
+     *            返回实体类型
+     * @param params
+     *            参数
+     */
+    public void execute(String loadingMsg, String url, Class<Response> responceClass, Map<String, String> params) {
+        
+        if (detectNetwork() == NET_UNAVAILABLE) {
+            ToastUtils.showMessage(NETWORK_MSG_ERROR);
+            return;
+        }
+        
+        if (StringUtils.isNullOrEmpty(url)) {
+            return;
+        }
+        
+        if (mOnLoadCompleteListener == null) {
+            throw new IllegalArgumentException("OnLoadCompleteListener is null. You must call setOnLoadCompleteListener before.");
+        }
+        
+        if (isUseProgress) {
+            showProgressDialog(loadingMsg);
+        }
+        
+        // 执行Http请求
+        FastjsonRequest<Response> request = new FastjsonRequest<Response>(Method.POST,
+                                                                          url,
+                                                                          responceClass,
+                                                                          params,
+                                                                          successListener,
+                                                                          errorListener);
+        // 设置缓存
+        request.setUseCache(isUseCache);
+        // 设置连接超时时间
+        setRetryPolicy(request);
+        request.setTag(mContext);
+        RequestManager.getRequestQueue().add(request);
+    }
+    
+    /**
+     * 发送服务端数据请求,有Dialog模式
+     * 
+     * @param mContext
+     * @param tag
+     * @param url
+     * @param loadingMsg
+     * @param responceClass
+     * @param params
+     */
+    public void executeWithTags(Object tag,
+                                String url,
+                                String loadingMsg,
+                                Class<Response> responceClass,
+                                Map<String, String> params) {
+        if (detectNetwork() == NET_UNAVAILABLE) {
+            ToastUtils.showMessage(NETWORK_MSG_ERROR);
+            return;
+        }
+        
+        if (StringUtils.isNullOrEmpty(url))
+            return;
+        
+        if (mOnLoadCompleteListener == null)
+            throw new IllegalArgumentException("OnLoadCompleteListener is null. You must call setOnLoadCompleteListener before.");
+        
+        if (isUseProgress)
+            showProgressDialog(loadingMsg);
+        
+        // 执行Http请求
+        FastjsonRequest<Response> request = new FastjsonRequest<Response>(Method.POST,
+                                                                          url,
+                                                                          responceClass,
+                                                                          params,
+                                                                          successListener,
+                                                                          errorListener);
+        
+        // 设置缓存
+        request.setUseCache(isUseCache);
+        // 设置连接超时时间
+        setRetryPolicy(request);
+        // 设置连接超时时间
+        request.setTag(tag);
+        RequestManager.getRequestQueue().add(request);
+    }
+    
+    /**
+     * @description
+     * @date 2015年10月13日
+     * @param url
+     * @param msg
+     * @param responceClass
+     * @param file
+     */
+    public void executeFileUpload(String msg, String url, Class<Response> responceClass, Map<String, String> params) {
+        if (detectNetwork() == NET_UNAVAILABLE) {
+            ToastUtils.showMessage(NETWORK_MSG_ERROR);
+            return;
+        }
+        
+        if (StringUtils.isNullOrEmpty(url))
+            return;
+        
+        if (mOnLoadCompleteListener == null) {
+            throw new IllegalArgumentException("OnLoadCompleteListener is null. You must call setOnLoadCompleteListener before.");
+        }
+        
+        if (isUseProgress) {
+            showProgressDialog(msg);
+        }
+        // TODO 需要修改
+        MultipartRequest<Response> request = new MultipartRequest<Response>(url,
+                                                                            responceClass,
+                                                                            null,
+                                                                            successListener,
+                                                                            errorListener);
+        // 设置缓存
+        // 设置连接超时时间
+        setRetryPolicy(request);
+        // 设置连接超时时间
+        request.setTag(mContext);
+        RequestManager.getRequestQueue().add(request);
+    }
+    
+    // //////////////////////////////////////////////////////Map参数-结束//////////////////////////////////////////////////////////////////////////////
     
     /**
      * 设置连接重试和timeout

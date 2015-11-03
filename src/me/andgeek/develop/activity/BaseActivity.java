@@ -21,11 +21,11 @@ public class BaseActivity extends FragmentActivity implements OnTitleBarClickLis
     
     protected Activity mActivity = this;
     
-    @ViewInject(R.id.tv_left)
-    private TextView mTextViewLeft;
-    
-    @ViewInject(R.id.tv_right)
-    private TextView mTextViewRight;
+//    @ViewInject(R.id.tv_left)
+//    private TextView mTextViewLeft;
+//    
+//    @ViewInject(R.id.tv_right)
+//    private TextView mTextViewRight;
     
     private TitleBar mTitleBar;
     

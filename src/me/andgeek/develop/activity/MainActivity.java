@@ -2,18 +2,16 @@ package me.andgeek.develop.activity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.os.Bundle;
-
-import com.android.volley.VolleyError;
 import me.andgeek.develop.R;
 import me.andgeek.develop.model.BaseModel;
 import me.andgeek.develop.net.OnLoadFinishListener;
 import me.andgeek.develop.net.RequestClient;
 import me.andgeek.develop.util.ToastUtils;
+import android.os.Bundle;
+
+import com.android.volley.VolleyError;
 
 public class MainActivity extends BaseActivity {
     
@@ -38,16 +36,15 @@ public class MainActivity extends BaseActivity {
                 
             }
         });
-        JSONObject param = new JSONObject();
-        try {
-            param.put("Phone", "18180641988");
-            param.put("Password", "965EB72C92A549DD");
-        }
-        catch (JSONException e1) {
-            e1.printStackTrace();
-        }
-        //client.execute("正在加载", "http://211.149.216.40:7777/api/Login", BaseModel.class, param);
-        
+        HashMap<String, String> param = new HashMap<String, String>();
+        param.put("client_type", "sale");
+        param.put("name", "ttest");
+        param.put("pwd", "111111");
+        param.put("nowver", "20151022");
+        param.put("task", "s_user_login");
+        param.put("serverver", "v2");
+        param.put("sign", "eb4e5aeca5f2ee16577a6d5951b25648");
+        client.execute("正在加载", "http://192.168.0.230?", BaseModel.class, param);
         
         RequestClient<BaseModel> client1 = new RequestClient<BaseModel>(mActivity);
         client1.setOnLoadCompleteListener(new OnLoadFinishListener<BaseModel>() {
@@ -63,7 +60,7 @@ public class MainActivity extends BaseActivity {
                 
             }
         });
-        File file = new File(getExternalCacheDir(),"aaa");
+        File file = new File(getExternalCacheDir(), "aaa");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -72,6 +69,7 @@ public class MainActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-        client1.executeFileUpload("正在加载", "http://211.149.216.40:7777/api/UpFile", BaseModel.class, file);
+        // client1.executeFileUpload("正在加载",
+        // "http://211.149.216.40:7777/api/UpFile", BaseModel.class, file);
     }
 }
