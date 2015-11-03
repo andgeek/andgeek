@@ -6,7 +6,7 @@ import java.util.Map;
 import me.andgeek.develop.BaseApplication;
 import me.andgeek.develop.util.StringUtils;
 import me.andgeek.develop.util.ToastUtils;
-import me.andgeek.develop.view.ProgressDialog;
+import me.andgeek.develop.view.LoadingDialog;
 
 import org.json.JSONObject;
 
@@ -32,7 +32,7 @@ public class RequestClient<T> {
     private OnLoadFinishListener<T> mOnLoadCompleteListener;
     
     /** 数据请求加载进度 */
-    private ProgressDialog mProgressDialog;
+    private LoadingDialog mLoadingDialog;
     
     private final String DEFAULT_LOAD_MSG = "正在努力加载...";
     
@@ -128,9 +128,9 @@ public class RequestClient<T> {
     }
     
     private void dismissDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing() && isActivityAlive()) {
-            mProgressDialog.dismiss();
-            mProgressDialog = null;
+        if (mLoadingDialog != null && mLoadingDialog.isShowing() && isActivityAlive()) {
+            mLoadingDialog.dismiss();
+            mLoadingDialog = null;
         }
     }
     
@@ -140,12 +140,13 @@ public class RequestClient<T> {
      * @param mContext
      * @param loadingMsg
      */
-    private void showProgressDialog(String loadingMsg) {
-        if (null == mProgressDialog && isActivityAlive()) {
+    private void showDialog(String loadingMsg) {
+        if (null == mLoadingDialog && isActivityAlive()) {
             if (StringUtils.isNullOrEmpty(loadingMsg)) {
                 loadingMsg = DEFAULT_LOAD_MSG;
             }
-            mProgressDialog = ProgressDialog.show(mContext, loadingMsg, true, true, null);
+            mLoadingDialog = new LoadingDialog(mContext);
+            mLoadingDialog.show(loadingMsg);
         }
     }
     
@@ -178,7 +179,7 @@ public class RequestClient<T> {
         }
         
         if (isUseProgress) {
-            showProgressDialog(loadingMsg);
+            showDialog(loadingMsg);
         }
         
         // 执行Http请求
@@ -219,7 +220,7 @@ public class RequestClient<T> {
             throw new IllegalArgumentException("OnLoadCompleteListener is null. You must call setOnLoadCompleteListener before.");
         
         if (isUseProgress)
-            showProgressDialog(loadingMsg);
+            showDialog(loadingMsg);
         
         // 执行Http请求
         FastjsonRequest<T> request = new FastjsonRequest<T>(Method.POST,
@@ -260,7 +261,7 @@ public class RequestClient<T> {
         }
         
         if (isUseProgress) {
-            showProgressDialog(loadingMsg);
+            showDialog(loadingMsg);
         }
         
         MultipartRequest<T> request = new MultipartRequest<T>(url, responceClass, file, successListener, errorListener);
@@ -301,7 +302,7 @@ public class RequestClient<T> {
         }
         
         if (isUseProgress) {
-            showProgressDialog(loadingMsg);
+            showDialog(loadingMsg);
         }
         
         // 执行Http请求
@@ -345,7 +346,7 @@ public class RequestClient<T> {
             throw new IllegalArgumentException("OnLoadCompleteListener is null. You must call setOnLoadCompleteListener before.");
         
         if (isUseProgress)
-            showProgressDialog(loadingMsg);
+            showDialog(loadingMsg);
         
         // 执行Http请求
         FastjsonRequest<T> request = new FastjsonRequest<T>(Method.POST,
@@ -386,7 +387,7 @@ public class RequestClient<T> {
         }
         
         if (isUseProgress) {
-            showProgressDialog(loadingMsg);
+            showDialog(loadingMsg);
         }
         // TODO 需要修改
         MultipartRequest<T> request = new MultipartRequest<T>(url, responceClass, null, successListener, errorListener);
