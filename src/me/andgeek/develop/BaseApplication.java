@@ -1,8 +1,7 @@
 package me.andgeek.develop;
 
-import android.app.Application;
-
 import me.andgeek.develop.net.RequestManager;
+import android.app.Application;
 
 public class BaseApplication extends Application {
     

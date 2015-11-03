@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.andgeek.develop.util.LogUtils;
+
 import org.apache.http.entity.FileEntity;
 
 import com.alibaba.fastjson.JSON;
@@ -20,7 +22,6 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
-import me.andgeek.develop.util.LogUtils;
 
 public class MultipartRequest<T> extends Request<T> {
     

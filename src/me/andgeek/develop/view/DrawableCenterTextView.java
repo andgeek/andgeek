@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 /**
  * 自定义带图标的TextView视图，可以实现图片文字居中
+ * 
  * @description
  * @author summer
  * @date 2014-10-12 下午10:43:06
@@ -35,7 +36,7 @@ public class DrawableCenterTextView extends TextView {
             Drawable drawableRight = drawables[2];
             Drawable drawableBottom = drawables[3];
             if (drawableLeft != null) {
-            	setGravity(Gravity.CENTER_VERTICAL);
+                setGravity(Gravity.CENTER_VERTICAL);
                 float textWidth = getPaint().measureText(getText().toString());
                 int drawablePadding = getCompoundDrawablePadding();
                 int drawableWidth = 0;
@@ -53,13 +54,13 @@ public class DrawableCenterTextView extends TextView {
                 canvas.translate(0, (getHeight() - bodyHeight) / 2);
             }
             if (drawableRight != null) {
-            	setGravity(Gravity.CENTER_VERTICAL);
+                setGravity(Gravity.CENTER_VERTICAL);
                 float textWidth = getPaint().measureText(getText().toString());
                 int drawablePadding = getCompoundDrawablePadding();
                 int drawableWidth = 0;
                 drawableWidth = drawableRight.getIntrinsicWidth();
-                float bodyWidth =drawableWidth + textWidth + drawablePadding ;
-                setPadding(0, 0, (int)(getWidth() - bodyWidth), 0);
+                float bodyWidth = drawableWidth + textWidth + drawablePadding;
+                setPadding(0, 0, (int) (getWidth() - bodyWidth), 0);
                 canvas.translate((getWidth() - bodyWidth) / 2, 0);
             }
             if (drawableBottom != null) {
@@ -69,7 +70,7 @@ public class DrawableCenterTextView extends TextView {
                 int drawableHeight = 0;
                 drawableHeight = drawableBottom.getIntrinsicHeight();
                 float bodyHeight = textHeight + drawableHeight + drawablePadding;
-                setPadding(0, 0, 0, (int)(getHeight() - bodyHeight));
+                setPadding(0, 0, 0, (int) (getHeight() - bodyHeight));
                 canvas.translate(0, (getHeight() - bodyHeight) / 2);
             }
         }

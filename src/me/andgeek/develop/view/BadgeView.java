@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 /**
  * 自定义带提示条数的TextView视图
+ * 
  * @description
  * @author Administrator
  * @date 2014-10-12 下午10:43:06

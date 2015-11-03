@@ -75,7 +75,7 @@ public class DataCleanManager {
      * @description 获取目录或者文件大小
      * @date 2015年8月27日
      * @param file
-     * @return long 
+     * @return long
      */
     public static long getFolderSize(File file) {
         long size = 0;
@@ -102,7 +102,7 @@ public class DataCleanManager {
      * 格式化单位
      * 
      * @param size
-     * @return String 
+     * @return String
      */
     public static String getFormatSize(double size) {
         double kiloByte = size / 1024;

@@ -1,5 +1,6 @@
 package me.andgeek.develop.view;
 
+import me.andgeek.develop.R;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,8 +12,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import me.andgeek.develop.R;
 
 public class ProgressDialog extends Dialog {
     public ProgressDialog(Context context) {

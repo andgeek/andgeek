@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 /**
  * 不滚动的ListView视图
+ * 
  * @description
  * @author summer
  * @date 2014-10-12 下午10:43:06

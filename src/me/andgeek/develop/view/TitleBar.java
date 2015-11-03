@@ -1,5 +1,6 @@
 package me.andgeek.develop.view;
 
+import me.andgeek.develop.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import me.andgeek.develop.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -72,7 +72,7 @@ public class TitleBar extends LinearLayout {
         mOnTitleBarClickListener = listener;
     }
     
-    @OnClick({R.id.tv_left, R.id.tv_right, R.id.tv_middle})
+    @OnClick({ R.id.tv_left, R.id.tv_right, R.id.tv_middle })
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_left:

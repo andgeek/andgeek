@@ -99,14 +99,14 @@ public final class IntentUtils {
      * @param phoneNum
      *            电话号码
      */
-	public static void call(Context context , String phoneNum) {
-		Uri uri = Uri.parse("tel:"+phoneNum);
-		Intent intent = new Intent(Intent.ACTION_DIAL, uri);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(intent);
-	}
-	
-	/**
+    public static void call(Context context, String phoneNum) {
+        Uri uri = Uri.parse("tel:" + phoneNum);
+        Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+    
+    /**
      * @description 进入发短信界面
      * @date 2015年9月6日
      * @param context
@@ -114,36 +114,36 @@ public final class IntentUtils {
      * @param message
      *            消息内容
      */
-	public static void sendSMS(Context context , String message) {
-		Uri uri = Uri.parse("smsto:");
-		Intent intent = new Intent(Intent.ACTION_SENDTO,uri);
-		intent.putExtra("sms_body", message);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(intent);
-	}
-	
-	/**
+    public static void sendSMS(Context context, String message) {
+        Uri uri = Uri.parse("smsto:");
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        intent.putExtra("sms_body", message);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+    
+    /**
      * @description 跳转到网络设置
      * @date 2015年9月6日
      * @param context
      *            上下文
      */
-	public static void settingNetwork(Context context) {
-		Intent intent = new Intent("android.settings.WIRELESS_SETTINGS");
-		context.startActivity(intent);
-	}
-	
-	/**
+    public static void settingNetwork(Context context) {
+        Intent intent = new Intent("android.settings.WIRELESS_SETTINGS");
+        context.startActivity(intent);
+    }
+    
+    /**
      * @description 打开GPS
      * @date 2015年9月6日
      * @param context
      *            上下文
      */
-    public static void openGPS(Context context) {  
-    	Intent intent = new Intent();
+    public static void openGPS(Context context) {
+        Intent intent = new Intent();
         intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-    }  
+    }
     
 }

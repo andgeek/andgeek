@@ -26,10 +26,10 @@ import com.android.volley.VolleyError;
 /**
  * 请求处理监听
  */
-public class RequestClient<Response> {
+public class RequestClient<T> {
     
     /** 加载完成监听器. */
-    private OnLoadFinishListener<Response> mOnLoadCompleteListener;
+    private OnLoadFinishListener<T> mOnLoadCompleteListener;
     
     /** 数据请求加载进度 */
     private ProgressDialog mProgressDialog;
@@ -160,9 +160,9 @@ public class RequestClient<Response> {
      * @param responceClass
      *            返回实体类型
      * @param params
-     *            参数
+     *            参数Json形式
      */
-    public void execute(String loadingMsg, String url, Class<Response> responceClass, JSONObject params) {
+    public void execute(String loadingMsg, String url, Class<T> responceClass, JSONObject params) {
         
         if (detectNetwork() == NET_UNAVAILABLE) {
             ToastUtils.showMessage(NETWORK_MSG_ERROR);
@@ -182,12 +182,12 @@ public class RequestClient<Response> {
         }
         
         // 执行Http请求
-        FastjsonRequest<Response> request = new FastjsonRequest<Response>(Method.POST,
-                                                                          url,
-                                                                          responceClass,
-                                                                          params,
-                                                                          successListener,
-                                                                          errorListener);
+        FastjsonRequest<T> request = new FastjsonRequest<T>(Method.POST,
+                                                            url,
+                                                            responceClass,
+                                                            params,
+                                                            successListener,
+                                                            errorListener);
         // 设置缓存
         request.setUseCache(isUseCache);
         // 设置连接超时时间
@@ -206,11 +206,7 @@ public class RequestClient<Response> {
      * @param responceClass
      * @param params
      */
-    public void executeWithTags(Object tag,
-                                String url,
-                                String loadingMsg,
-                                Class<Response> responceClass,
-                                JSONObject params) {
+    public void executeWithTags(Object tag, String loadingMsg, String url, Class<T> responceClass, JSONObject params) {
         if (detectNetwork() == NET_UNAVAILABLE) {
             ToastUtils.showMessage(NETWORK_MSG_ERROR);
             return;
@@ -226,12 +222,12 @@ public class RequestClient<Response> {
             showProgressDialog(loadingMsg);
         
         // 执行Http请求
-        FastjsonRequest<Response> request = new FastjsonRequest<Response>(Method.POST,
-                                                                          url,
-                                                                          responceClass,
-                                                                          params,
-                                                                          successListener,
-                                                                          errorListener);
+        FastjsonRequest<T> request = new FastjsonRequest<T>(Method.POST,
+                                                            url,
+                                                            responceClass,
+                                                            params,
+                                                            successListener,
+                                                            errorListener);
         
         // 设置缓存
         request.setUseCache(isUseCache);
@@ -250,7 +246,7 @@ public class RequestClient<Response> {
      * @param responceClass
      * @param file
      */
-    public void executeFileUpload(String msg, String url, Class<Response> responceClass, File file) {
+    public void executeFileUpload(String loadingMsg, String url, Class<T> responceClass, File file) {
         if (detectNetwork() == NET_UNAVAILABLE) {
             ToastUtils.showMessage(NETWORK_MSG_ERROR);
             return;
@@ -264,14 +260,10 @@ public class RequestClient<Response> {
         }
         
         if (isUseProgress) {
-            showProgressDialog(msg);
+            showProgressDialog(loadingMsg);
         }
         
-        MultipartRequest<Response> request = new MultipartRequest<Response>(url,
-                                                                            responceClass,
-                                                                            file,
-                                                                            successListener,
-                                                                            errorListener);
+        MultipartRequest<T> request = new MultipartRequest<T>(url, responceClass, file, successListener, errorListener);
         // 设置缓存
         // 设置连接超时时间
         setRetryPolicy(request);
@@ -291,9 +283,9 @@ public class RequestClient<Response> {
      * @param responceClass
      *            返回实体类型
      * @param params
-     *            参数
+     *            参数Map形式
      */
-    public void execute(String loadingMsg, String url, Class<Response> responceClass, Map<String, String> params) {
+    public void execute(String loadingMsg, String url, Class<T> responceClass, Map<String, String> params) {
         
         if (detectNetwork() == NET_UNAVAILABLE) {
             ToastUtils.showMessage(NETWORK_MSG_ERROR);
@@ -313,12 +305,12 @@ public class RequestClient<Response> {
         }
         
         // 执行Http请求
-        FastjsonRequest<Response> request = new FastjsonRequest<Response>(Method.POST,
-                                                                          url,
-                                                                          responceClass,
-                                                                          params,
-                                                                          successListener,
-                                                                          errorListener);
+        FastjsonRequest<T> request = new FastjsonRequest<T>(Method.POST,
+                                                            url,
+                                                            responceClass,
+                                                            params,
+                                                            successListener,
+                                                            errorListener);
         // 设置缓存
         request.setUseCache(isUseCache);
         // 设置连接超时时间
@@ -330,7 +322,6 @@ public class RequestClient<Response> {
     /**
      * 发送服务端数据请求,有Dialog模式
      * 
-     * @param mContext
      * @param tag
      * @param url
      * @param loadingMsg
@@ -338,9 +329,9 @@ public class RequestClient<Response> {
      * @param params
      */
     public void executeWithTags(Object tag,
-                                String url,
                                 String loadingMsg,
-                                Class<Response> responceClass,
+                                String url,
+                                Class<T> responceClass,
                                 Map<String, String> params) {
         if (detectNetwork() == NET_UNAVAILABLE) {
             ToastUtils.showMessage(NETWORK_MSG_ERROR);
@@ -357,12 +348,12 @@ public class RequestClient<Response> {
             showProgressDialog(loadingMsg);
         
         // 执行Http请求
-        FastjsonRequest<Response> request = new FastjsonRequest<Response>(Method.POST,
-                                                                          url,
-                                                                          responceClass,
-                                                                          params,
-                                                                          successListener,
-                                                                          errorListener);
+        FastjsonRequest<T> request = new FastjsonRequest<T>(Method.POST,
+                                                            url,
+                                                            responceClass,
+                                                            params,
+                                                            successListener,
+                                                            errorListener);
         
         // 设置缓存
         request.setUseCache(isUseCache);
@@ -381,7 +372,7 @@ public class RequestClient<Response> {
      * @param responceClass
      * @param file
      */
-    public void executeFileUpload(String msg, String url, Class<Response> responceClass, Map<String, String> params) {
+    public void executeFileUpload(String loadingMsg, String url, Class<T> responceClass, Map<String, String> params) {
         if (detectNetwork() == NET_UNAVAILABLE) {
             ToastUtils.showMessage(NETWORK_MSG_ERROR);
             return;
@@ -395,14 +386,10 @@ public class RequestClient<Response> {
         }
         
         if (isUseProgress) {
-            showProgressDialog(msg);
+            showProgressDialog(loadingMsg);
         }
         // TODO 需要修改
-        MultipartRequest<Response> request = new MultipartRequest<Response>(url,
-                                                                            responceClass,
-                                                                            null,
-                                                                            successListener,
-                                                                            errorListener);
+        MultipartRequest<T> request = new MultipartRequest<T>(url, responceClass, null, successListener, errorListener);
         // 设置缓存
         // 设置连接超时时间
         setRetryPolicy(request);
@@ -419,17 +406,17 @@ public class RequestClient<Response> {
      * @param <T>
      * @param request
      */
-    private <T> void setRetryPolicy(Request<T> request) {
+    private void setRetryPolicy(Request<T> request) {
         request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
     
     /**
      * 接收服务端响应成功
      */
-    private com.android.volley.Response.Listener<Response> successListener = new com.android.volley.Response.Listener<Response>() {
+    private com.android.volley.Response.Listener<T> successListener = new com.android.volley.Response.Listener<T>() {
         
         @Override
-        public void onResponse(Response response) {
+        public void onResponse(T response) {
             dismissDialog();
             
             if (response == null) {
@@ -456,11 +443,11 @@ public class RequestClient<Response> {
         }
     };
     
-    public OnLoadFinishListener<Response> getOnLoadCompleteListener() {
+    public OnLoadFinishListener<T> getOnLoadCompleteListener() {
         return mOnLoadCompleteListener;
     }
     
-    public void setOnLoadCompleteListener(OnLoadFinishListener<Response> onLoadCompleteListener) {
+    public void setOnLoadCompleteListener(OnLoadFinishListener<T> onLoadCompleteListener) {
         mOnLoadCompleteListener = onLoadCompleteListener;
     }
 }

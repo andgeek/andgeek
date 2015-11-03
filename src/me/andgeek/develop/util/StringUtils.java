@@ -81,26 +81,27 @@ public final class StringUtils {
     }
     
     /**
-	 * 检查是否是正确的email
-	 * @param email
-	 * @return
-	 */
-	public static boolean checkEmail(String email){
-		String regex = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*" ;   
-		Pattern   p   =   Pattern.compile(regex);  
-		Matcher   m   =   p.matcher(email);  
-		return  m.matches();
-	}
-	
-	 /**
+     * 检查是否是正确的email
+     * 
+     * @param email
+     * @return
+     */
+    public static boolean checkEmail(String email) {
+        String regex = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
+    
+    /**
      * 去除字符串里的空格
+     * 
      * @param str
      * @return
      */
-    public static String removeAllSpace(String str)  
-    {  
-        String tmpstr=str.replace(" ","");  
-        return tmpstr;  
-    } 
+    public static String removeAllSpace(String str) {
+        String tmpstr = str.replace(" ", "");
+        return tmpstr;
+    }
     
 }

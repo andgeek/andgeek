@@ -8,18 +8,13 @@ import java.lang.annotation.Target;
 import android.widget.AbsListView;
 
 /**
- * Author: wyouflf
- * Date: 13-9-12
- * Time: 下午11:25
+ * Author: wyouflf Date: 13-9-12 Time: 下午11:25
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@EventBase(
-        listenerType = AbsListView.OnScrollListener.class,
-        listenerSetter = "setOnScrollListener",
-        methodName = "onScroll")
+@EventBase(listenerType = AbsListView.OnScrollListener.class, listenerSetter = "setOnScrollListener", methodName = "onScroll")
 public @interface OnScroll {
     int[] value();
-
+    
     int[] parentId() default 0;
 }

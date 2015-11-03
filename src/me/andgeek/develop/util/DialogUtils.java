@@ -1,11 +1,10 @@
 package me.andgeek.develop.util;
 
+import me.andgeek.develop.service.UpdataService;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import me.andgeek.develop.service.UpdataService;
 
 public final class DialogUtils {
     

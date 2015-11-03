@@ -7,6 +7,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
+
 /**
  * 描述： Spannable工具
  * 
@@ -51,8 +52,11 @@ public class SpannableStringUtils {
     
     /**
      * 设置个人主页菜单项
-     * @param str 传入的字符串
-     * @param size 设置大小
+     * 
+     * @param str
+     *            传入的字符串
+     * @param size
+     *            设置大小
      * @return
      */
     public static SpannableStringBuilder setTextSize(CharSequence str, int size) {

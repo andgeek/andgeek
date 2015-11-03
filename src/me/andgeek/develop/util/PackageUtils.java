@@ -1,10 +1,9 @@
 package me.andgeek.develop.util;
 
+import me.andgeek.develop.BaseApplication;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-
-import me.andgeek.develop.BaseApplication;
 
 public final class PackageUtils {
     

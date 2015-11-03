@@ -10,13 +10,7 @@
  *******************************************************************************/
 package com.android.pulltorefresh.library;
 
-import com.android.pulltorefresh.library.internal.FlipLoadingLayout;
-import com.android.pulltorefresh.library.internal.LoadingLayout;
-import com.android.pulltorefresh.library.internal.RotateLoadingLayout;
-import com.android.pulltorefresh.library.internal.Utils;
-import com.android.pulltorefresh.library.internal.ViewCompat;
 import me.andgeek.develop.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -36,6 +30,11 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.android.pulltorefresh.library.internal.FlipLoadingLayout;
+import com.android.pulltorefresh.library.internal.LoadingLayout;
+import com.android.pulltorefresh.library.internal.RotateLoadingLayout;
+import com.android.pulltorefresh.library.internal.Utils;
+import com.android.pulltorefresh.library.internal.ViewCompat;
 
 public abstract class PullToRefreshBase<T extends View> extends LinearLayout implements IPullToRefresh<T> {
     

@@ -1,13 +1,11 @@
 package me.andgeek.develop.util;
 
-import android.content.Context;
+import me.andgeek.develop.BaseApplication;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
-
-import me.andgeek.develop.BaseApplication;
 
 /**
  * 描述： Toast工具类
@@ -41,7 +39,7 @@ public final class ToastUtils {
      * @param msg
      *            需要显示的消息
      */
-    public static void showMessage(final Context act, final String msg) {
+    public static void showMessageLong(final String msg) {
         showMessage(msg, Toast.LENGTH_SHORT);
     }
     
