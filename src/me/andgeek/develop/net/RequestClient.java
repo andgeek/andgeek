@@ -129,8 +129,8 @@ public class RequestClient<T> {
     
     private void dismissDialog() {
         if (mLoadingDialog != null && mLoadingDialog.isShowing() && isActivityAlive()) {
-            mLoadingDialog.dismiss();
-            mLoadingDialog = null;
+            // mLoadingDialog.dismiss();
+            // mLoadingDialog = null;
         }
     }
     
@@ -146,7 +146,7 @@ public class RequestClient<T> {
                 loadingMsg = DEFAULT_LOAD_MSG;
             }
             mLoadingDialog = new LoadingDialog(mContext);
-            mLoadingDialog.show(loadingMsg);
+            mLoadingDialog.show();
         }
     }
     

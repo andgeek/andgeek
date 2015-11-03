@@ -24,16 +24,14 @@ public class LoadingDialog extends Dialog {
     
     public LoadingDialog(Context context, int theme) {
         super(context, R.style.Translucent_NoTitle);
+        initView();
     }
     
     public LoadingDialog(Context context) {
         this(context, -1);
     }
     
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onCreate(savedInstanceState);
+    protected void initView() {
         setContentView(R.layout.dialog_loading);
         setCanceledOnTouchOutside(false);
         
@@ -41,23 +39,21 @@ public class LoadingDialog extends Dialog {
         mAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.loading_rotate);
         LinearInterpolator lin = new LinearInterpolator();
         mAnimation.setInterpolator(lin);
-        mTvMsg = (TextView) findViewById(R.id.tv_msg);
-    }
-    
-    public void show(String msg) {
-        super.show();
-        mTvMsg.setText(msg);
-        mImageView.post(new Runnable() {
-            @Override
-            public void run() {
-                mImageView.startAnimation(mAnimation);
-            }
-        });
+//        mTvMsg = (TextView) findViewById(R.id.tv_msg);
+//        //mTvMsg.setText(msg);
+//        mImageView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mImageView.startAnimation(mAnimation);
+//            }
+//        });
     }
     
     @Override
     public void dismiss() {
         super.dismiss();
-        mImageView.clearAnimation();
+//        mImageView.clearAnimation();
     }
+    
+    
 }
